@@ -1,7 +1,9 @@
 package com.gm.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.gm.entity.Article;
+import com.gm.domain.ResponseResult;
+import com.gm.domain.entity.Article;
 
 public interface ArticleService extends IService<Article> {
+    ResponseResult hotArticleList();
 }

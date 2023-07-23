@@ -1,6 +1,7 @@
 package com.gm.controller;
 
-import com.gm.entity.Article;
+import com.gm.domain.ResponseResult;
+import com.gm.domain.entity.Article;
 import com.gm.service.ArticleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,8 +17,15 @@ public class ArticleController {
     @Autowired
     private ArticleService articleService;
 
-    @GetMapping("/list")
-    public List<Article> test(){
-        return articleService.list();
+//    @GetMapping("/list")
+//    public List<Article> test() {
+//        return articleService.list();
+//    }
+
+    @GetMapping("/hotArticleList")
+    public ResponseResult hotArticleList(){
+        //查询热门文章，封装成ResponseResult返回
+        ResponseResult result=articleService.hotArticleList();
+        return result;
     }
 }
