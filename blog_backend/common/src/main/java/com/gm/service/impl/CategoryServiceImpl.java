@@ -6,9 +6,11 @@ import com.gm.constants.SystemConstants;
 import com.gm.domain.ResponseResult;
 import com.gm.domain.entity.Article;
 import com.gm.domain.entity.Category;
+import com.gm.domain.vo.CategoryVo;
 import com.gm.mapper.CategoryMapper;
 import com.gm.service.ArticleService;
 import com.gm.service.CategoryService;
+import com.gm.utils.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -39,9 +41,14 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryMapper, Category> i
                 .map(article -> article.getCategoryId())
                 .collect(Collectors.toSet());
         //查询分类表
-
+        List<Category> categories = listByIds(categoryIds);
+        List<Category> categoryList = categories.stream()
+                .filter(category -> SystemConstants.STATUS_NORMAL.equals(category.getStatus()))
+                .collect(Collectors.toList());
         //封装vo
-        return null;
+        List<CategoryVo> categoryVos = BeanUtils.copyBeanList(categories, CategoryVo.class);
+
+        return ResponseResult.okResult(categoryVos);
     }
 }
 
